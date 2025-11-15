@@ -21,16 +21,12 @@ with open("model_1.obj") as f:
 
 # поворот и смещение модели
 def rotate_and_translate(v):
-    a, b, g = math.radians(0), math.radians(-100), math.radians(-30)
-    Rx = np.array([[1, 0, 0],
-                   [0, math.cos(a), math.sin(a)],
-                   [0, -math.sin(a), math.cos(a)]])
-    Ry = np.array([[math.cos(b), 0, math.sin(b)],
-                   [0, 1, 0],
-                   [-math.sin(b), 0, math.cos(b)]])
-    Rz = np.array([[math.cos(g), math.sin(g), 0],
-                   [-math.sin(g), math.cos(g), 0],
-                   [0, 0, 1]])
+    a, b, g = math.radians(30), math.radians(-150), math.radians(0)
+
+    Rx = np.array([[1, 0, 0], [0, math.cos(a), math.sin(a)], [0, -math.sin(a), math.cos(a)]])
+    Ry = np.array([[math.cos(b), 0, math.sin(b)], [0, 1, 0], [-math.sin(b), 0, math.cos(b)]])
+    Rz = np.array([[math.cos(g), math.sin(g), 0], [-math.sin(g), math.cos(g), 0], [0, 0, 1]])
+
     R = Rx @ Ry @ Rz
     t = np.array([0.0, -0.04, 0.1])  # отодвигаем от камеры
 
@@ -48,6 +44,7 @@ def barycentric(x, y, x0, y0, x1, y1, x2, y2):
     l0 = ((x - x2) * (y1 - y2) - (x1 - x2) * (y - y2)) / denom
     l1 = ((x0 - x2) * (y - y2) - (x - x2) * (y0 - y2)) / denom
     l2 = 1 - l0 - l1
+
     return l0, l1, l2
 
 # проективное преобразование
